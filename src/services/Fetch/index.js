@@ -3,7 +3,7 @@ const { unsplashed } = CONFIG
 class Fetch {
   static randomImg () {
     return window.fetch(
-      `${unsplashed.baseUrl}/photos/random?orientation=squarish&w=00&h=800`, {
+      `${unsplashed.baseUrl}/photos/random?orientation=squarish&w=400&h=400`, {
         headers: {
           'Authorization': `Client-ID ${unsplashed.keys.public}`,
           'Accept-Version': 'v1',

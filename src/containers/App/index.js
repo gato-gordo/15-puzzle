@@ -3,6 +3,12 @@ import Puzzle from '../../services/Puzzle'
 import Fetch from '../../services/Fetch'
 
 class App extends Component {
+  static isGoodTarget (srcIdx, targetIdx) {
+    return targetIdx === srcIdx + 1 ||
+      targetIdx === srcIdx - 1 ||
+      targetIdx === srcIdx + 4 ||
+      targetIdx === srcIdx - 4
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -14,39 +20,89 @@ class App extends Component {
     await puzzle.slice()
     puzzle.shuffle()
     this.setState({
-      puzzleInPlay: puzzle.startModel
+      puzzleInPlay: puzzle.startModel,
+      beingDragged: null,
     })
+  }
+  onDrag (idxToVacate) {
+    this.setState({
+      beingDragged: idxToVacate
+    })
+  }
+  onDrop (idxToFill) {
+    const { beingDragged: idxToVacate, puzzleInPlay } = this.state
+    if (App.isGoodTarget(idxToVacate, idxToFill)) {
+      const newPuzzle = puzzleInPlay.slice()
+      newPuzzle[idxToFill] = newPuzzle[idxToVacate]
+      newPuzzle[idxToVacate] = null
+      this.setState({
+        puzzleInPlay: newPuzzle,
+        beingDragged: null,
+      })
+    }
+  }
+  renderRow (start) {
+    const cells = []
+    for (let i = start; i < start + 4; i++) {
+      const puzzlePiece = this.state.puzzleInPlay[i]
+      cells.push(
+        <div 
+          className="cell" 
+          key={`cell-${i}`} 
+          style={{
+            display: 'inline-block',
+            width: 100,
+            height: 100,
+          }} 
+        >
+           <img
+              onDrop={(e) => {
+                e.preventDefault()
+                this.onDrop(i)
+              }}
+              onDragOver={(e) => {
+                e.preventDefault()
+              }}
+              onDrag={(e) => {
+                e.preventDefault()
+                this.onDrag(i)
+              }}
+              draggable 
+              src={puzzlePiece} 
+              width="100" 
+              height="100"
+              style={{
+                cursor: 'pointer'
+              }}
+            />
+        </div>
+      )
+    }
+    return (
+      <div className="row">
+        { cells }
+      </div>
+    )
   }
   render() {
     if (this.state.puzzleInPlay.length < 15) {
       return <div />
     }
     return (
-      <div>
-        <div>
-        <img id="img-0" src={this.state.puzzleInPlay[0]} width="200" height="200" />
-        <img id="img-1" src={this.state.puzzleInPlay[1]} width="200" height="200" />
-        <img id="img-2" src={this.state.puzzleInPlay[2]} width="200" height="200" />
-        <img id="img-3" src={this.state.puzzleInPlay[3]} width="200" height="200" />
+      <div class="grid">
+        {
+          this.renderRow(0)
+        }
+        {
+          this.renderRow(4)
+        }
+        {
+          this.renderRow(8)
+        }
+        {
+          this.renderRow(12)
+        }
       </div>
-      <div>
-        <img id="img-4" src={this.state.puzzleInPlay[4]} width="200" height="200" />
-        <img id="img-5" src={this.state.puzzleInPlay[5]} width="200" height="200" />
-        <img id="img-6" src={this.state.puzzleInPlay[6]} width="200" height="200" />
-        <img id="img-7" src={this.state.puzzleInPlay[7]} width="200" height="200" />
-      </div>
-      <div>
-        <img id="img-8" src={this.state.puzzleInPlay[8]} width="200" height="200" />
-        <img id="img-9" src={this.state.puzzleInPlay[9]} width="200" height="200" />
-        <img id="img-10" src={this.state.puzzleInPlay[10]} width="200" height="200" />
-        <img id="img-11" src={this.state.puzzleInPlay[11]} width="200" height="200" />
-      <div>
-      </div>
-        <img id="img-12" src={this.state.puzzleInPlay[12]} width="200" height="200" />
-        <img id="img-13" src={this.state.puzzleInPlay[13]} width="200" height="200" />
-        <img id="img-14" src={this.state.puzzleInPlay[14]} width="200" height="200" />
-      </div>
-    </div>
     )
   }
 }

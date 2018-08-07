@@ -11,23 +11,23 @@ class Puzzle {
         image.src = this.srcUrl
         image.crossOrigin='Anonymous'
         image.onload = () => {
-          const widthOfOnePiece = 200
-          const heightOfOnePiece = 200
+          const widthOfOnePiece = 100
+          const heightOfOnePiece = 100
           const numColsToCut = 4
           const numRowsToCut = 4
           const imagePieces = []
-          for(var x = 0; x < numColsToCut; ++x) {
-            for(var y = 0; y < numRowsToCut; ++y) {
-                var canvas = document.createElement('canvas');
+          for(let x = 0; x < numColsToCut; ++x) {
+            for(let y = 0; y < numRowsToCut; ++y) {
+                const canvas = document.createElement('canvas');
                 canvas.width = widthOfOnePiece;
                 canvas.height = heightOfOnePiece;
-                var context = canvas.getContext('2d');
+                const context = canvas.getContext('2d');
                 context.drawImage(image, x * widthOfOnePiece, y * heightOfOnePiece, widthOfOnePiece, heightOfOnePiece, 0, 0, canvas.width, canvas.height);
                 imagePieces.push(canvas.toDataURL());
             }
           }
           this.solutionModel = imagePieces.slice()
-          this.solutionModel.pop() 
+          this.solutionModel.splice(15, 1, null) // set last piece to empty
           resolve()
         }
       } catch (e) {
@@ -37,7 +37,7 @@ class Puzzle {
   }
   shuffle () {
     const cloneModel = this.solutionModel.slice()
-    for (var i = 0; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       const randomIndex = Math.floor(Math.random() * cloneModel.length)
       this.startModel[i] = cloneModel[randomIndex]
       cloneModel.splice(randomIndex, 1)
