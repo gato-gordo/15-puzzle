@@ -7,7 +7,7 @@ class Puzzle {
   slice () {
     return new Promise((resolve, reject) => {
       try {
-        const image = new Image()
+        const image = new Image(400, 400)
         image.src = this.srcUrl
         image.crossOrigin='Anonymous'
         image.onload = () => {
@@ -16,8 +16,8 @@ class Puzzle {
           const numColsToCut = 4
           const numRowsToCut = 4
           const imagePieces = []
-          for(let x = 0; x < numColsToCut; ++x) {
-            for(let y = 0; y < numRowsToCut; ++y) {
+          for(let y = 0; y < numRowsToCut; ++y) {
+            for(let x = 0; x < numColsToCut; ++x) {
                 const canvas = document.createElement('canvas');
                 canvas.width = widthOfOnePiece;
                 canvas.height = heightOfOnePiece;

@@ -16,11 +16,11 @@ class App extends Component {
     }
   }
   async componentDidMount () {
-    const puzzle = new Puzzle(await Fetch.randomImg())
-    await puzzle.slice()
-    puzzle.shuffle()
+    this.puzzle = new Puzzle(await Fetch.randomImg())
+    await this.puzzle.slice()
+    this.puzzle.shuffle()
     this.setState({
-      puzzleInPlay: puzzle.startModel,
+      puzzleInPlay: this.puzzle.startModel,
       beingDragged: null,
     })
   }
@@ -38,6 +38,10 @@ class App extends Component {
       this.setState({
         puzzleInPlay: newPuzzle,
         beingDragged: null,
+      }, () => {
+        if (this.puzzle.isSolved(this.state.puzzleInPlay)) {
+          alert('solved!')
+        }
       })
     }
   }
@@ -58,7 +62,9 @@ class App extends Component {
            <img
               onDrop={(e) => {
                 e.preventDefault()
-                this.onDrop(i)
+                if (!puzzlePiece) {
+                  this.onDrop(i)
+                }
               }}
               onDragOver={(e) => {
                 e.preventDefault()
@@ -67,7 +73,7 @@ class App extends Component {
                 e.preventDefault()
                 this.onDrag(i)
               }}
-              draggable 
+              draggable={ puzzlePiece ? true : false /* don't allow drag of blank */}
               src={puzzlePiece} 
               width="100" 
               height="100"
@@ -79,7 +85,7 @@ class App extends Component {
       )
     }
     return (
-      <div className="row">
+      <div className="row" style={{ height: 100 }}>
         { cells }
       </div>
     )
@@ -89,7 +95,7 @@ class App extends Component {
       return <div />
     }
     return (
-      <div class="grid">
+      <div className="grid">
         {
           this.renderRow(0)
         }
