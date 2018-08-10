@@ -5,6 +5,7 @@
     "stage-0"
   ],
   "plugins": [
-    "emotion"
+    "emotion",
+    "transform-async-to-generator"
   ]
 }
