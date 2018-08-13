@@ -38881,7 +38881,7 @@ var _ModalClose2 = _interopRequireDefault(_ModalClose);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _CONFIG = {"unsplashed":{"keys":{"public":"99d6128f78e8bc5ae4e7d798d86a9fdb7bcf54d3203d5f5b8a36e59dd2fe27f0","private":""},"baseUrl":"https://api.unsplash.com/"},"siteTitle":"15-Puzzle: a ReactJS Implementation"},
+var _CONFIG = {"unsplash":{"keys":{"public":"99d6128f78e8bc5ae4e7d798d86a9fdb7bcf54d3203d5f5b8a36e59dd2fe27f0","private":""},"baseUrl":"https://api.unsplash.com/"},"siteTitle":"15-Puzzle: a ReactJS Implementation"},
     siteTitle = _CONFIG.siteTitle;
 
 
@@ -39074,7 +39074,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _CONFIG = {"unsplashed":{"keys":{"public":"99d6128f78e8bc5ae4e7d798d86a9fdb7bcf54d3203d5f5b8a36e59dd2fe27f0","private":""},"baseUrl":"https://api.unsplash.com/"},"siteTitle":"15-Puzzle: a ReactJS Implementation"},
+var _CONFIG = {"unsplash":{"keys":{"public":"99d6128f78e8bc5ae4e7d798d86a9fdb7bcf54d3203d5f5b8a36e59dd2fe27f0","private":""},"baseUrl":"https://api.unsplash.com/"},"siteTitle":"15-Puzzle: a ReactJS Implementation"},
     siteTitle = _CONFIG.siteTitle;
 
 
@@ -39820,8 +39820,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _CONFIG = {"unsplashed":{"keys":{"public":"99d6128f78e8bc5ae4e7d798d86a9fdb7bcf54d3203d5f5b8a36e59dd2fe27f0","private":""},"baseUrl":"https://api.unsplash.com/"},"siteTitle":"15-Puzzle: a ReactJS Implementation"},
-    unsplashed = _CONFIG.unsplashed;
+var _CONFIG = {"unsplash":{"keys":{"public":"99d6128f78e8bc5ae4e7d798d86a9fdb7bcf54d3203d5f5b8a36e59dd2fe27f0","private":""},"baseUrl":"https://api.unsplash.com/"},"siteTitle":"15-Puzzle: a ReactJS Implementation"},
+    unsplash = _CONFIG.unsplash;
 
 /**
  * Abstraction for fetching random image, plucking src, width, and height.
@@ -39835,9 +39835,9 @@ var Fetch = function () {
   _createClass(Fetch, null, [{
     key: 'randomImg',
     value: function randomImg() {
-      return window.fetch(unsplashed.baseUrl + '/photos/random?orientation=squarish', {
+      return window.fetch(unsplash.baseUrl + '/photos/random?orientation=squarish', {
         headers: {
-          'Authorization': 'Client-ID ' + unsplashed.keys.public,
+          'Authorization': 'Client-ID ' + unsplash.keys.public,
           'Accept-Version': 'v1',
           'Content-Type': 'application/json'
         }

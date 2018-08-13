@@ -1,4 +1,4 @@
-const { unsplashed } = CONFIG
+const { unsplash } = CONFIG
 
 /**
  * Abstraction for fetching random image, plucking src, width, and height.
@@ -6,9 +6,9 @@ const { unsplashed } = CONFIG
 class Fetch {
   static randomImg () {
     return window.fetch(
-      `${unsplashed.baseUrl}/photos/random?orientation=squarish`, {
+      `${unsplash.baseUrl}/photos/random?orientation=squarish`, {
         headers: {
-          'Authorization': `Client-ID ${unsplashed.keys.public}`,
+          'Authorization': `Client-ID ${unsplash.keys.public}`,
           'Accept-Version': 'v1',
           'Content-Type': 'application/json',
         }
